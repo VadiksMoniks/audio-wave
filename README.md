@@ -21,8 +21,8 @@ Simple C++ audio player to play music
 - Then go to https://github.com/lieff/minimp3 and download `minimp3_ex.h` and `minimp3.h`
 - You also need to download **SDL2** library
 - After instaling SDL2 change `CMake.txt` on line 15. Enter your path to this lib
-- Add some songs into `music` folder
-- After all you can build the project and test it by your own
+- After all you can build the project
+- **Now go inside`build` folder and look for `music` folder. Add here music files to listhen to them**
 
 ## **How it looks like**
 ![Screenshot](screen1.png)
