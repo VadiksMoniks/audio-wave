@@ -1,0 +1,6 @@
+/.qtcreator
+/.vscode
+
+/build/*
+
+/music/*

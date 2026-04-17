@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>vynil.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>vynil2.jpeg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>default_cover.png</file>
+    </qresource>
+</RCC>

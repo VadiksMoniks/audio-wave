@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>690</width>
+    <height>590</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(29, 29, 29)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>0</y>
+      <width>20</width>
+      <height>620</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PlayBtn">
+    <property name="geometry">
+     <rect>
+      <x>445</x>
+      <y>460</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* Фиксированный размер для строгой формы круга */
+    min-width: 60px;
+    max-width: 60px;
+    min-height: 60px;
+    max-height: 60px;
+
+    /* Радиус = половина стороны */
+    border-radius: 30px; 
+    background-color: rgba(255,255,255, 50);
+    color: #ffffff;
+}
+
+QPushButton:hover {
+	background-color: rgba(255,255,255, 120);
+}
+/* Эффект при нажатии */
+QPushButton:pressed {
+	background-color: rgba(255,255,255, 180);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PrevBtn">
+    <property name="geometry">
+     <rect>
+      <x>395</x>
+      <y>475</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+	background-color: rgba(255, 255, 255, 50);
+
+	border-radius: 15px; 
+}
+
+QPushButton:hover {
+    color: #aaaaaa;
+	background-color: rgba(255, 255, 255, 120);
+}
+
+QPushButton:pressed {
+    color: #888888;
+	background-color: rgba(255, 255, 255, 180);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaSkipBackward"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="NextBtn">
+    <property name="geometry">
+     <rect>
+      <x>525</x>
+      <y>475</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+	background-color: rgba(255, 255, 255, 50);
+
+	border-radius: 15px; 
+}
+
+QPushButton:hover {
+    color: #aaaaaa;
+	background-color: rgba(255, 255, 255, 120);
+}
+
+QPushButton:pressed {
+    color: #888888;
+	background-color: rgba(255, 255, 255, 180);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaSkipForward"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trackName">
+    <property name="geometry">
+     <rect>
+      <x>375</x>
+      <y>306</y>
+      <width>210</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 15px;
+padding: 2px;
+qproperty-alignment: 'AlignCenter';</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Track Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="shuffleBtn">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>480</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+	background-color: rgb(75, 75, 75);
+
+	border-radius: 8px; 
+}
+
+QPushButton:hover {
+    color: #aaaaaa;
+	background-color: rgba(255, 255, 255, 120);
+}
+
+QPushButton:pressed {
+    color: #888888;
+	background-color: rgba(255, 255, 255, 180);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaPlaylistShuffle"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="repeatBtn">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>480</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+	background-color: rgb(75,75,75);
+
+	border-radius: 8px; 
+}
+
+QPushButton:hover {
+    color: #aaaaaa;
+	background-color: rgba(255, 255, 255, 120);
+}
+
+QPushButton:pressed {
+    color: #888888;
+	background-color: rgba(255, 255, 255, 180);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaPlaylistRepeat"/>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>240</width>
+      <height>530</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(48, 48, 48);</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QSlider" name="audioSlider">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>400</y>
+      <width>310</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal {
+    height: 12px;                 /* толщина полосы */
+    background: #555555;          /* тёмно-серый цвет */
+    border-radius: 6px;           /* скругление краёв */
+}
+
+QSlider::handle:horizontal {
+    width: 0px;                   /* убираем видимый круг */
+    height: 0px;
+    margin: 0px;
+    background: transparent;       /* на всякий случай */
+}
+
+QSlider::sub-page:horizontal {
+    background: #777777;          /* цвет заполненной части */
+    border-radius: 6px;
+}
+
+QSlider::add-page:horizontal {
+    background: #555555;          /* цвет оставшейся части */
+    border-radius: 6px;
+}</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="played_time">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>430</y>
+      <width>30</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0:0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="total_time">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>430</y>
+      <width>30</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0:0</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::FolderOpen"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>352</x>
+      <y>40</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(45, 45, 45);
+padding: 10;
+border-radius: 10px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/vynil2.jpeg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trackArtist">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>343</y>
+      <width>200</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">qproperty-alignment: 'AlignCenter';
+padding: 2px;</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Unknown Artist&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>690</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
