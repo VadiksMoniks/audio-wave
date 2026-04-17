@@ -8,6 +8,7 @@ Simple C++ audio player to play music
 - You can use it as desktop player to play music
 - Supports .wav and .mp3
 - Repeat and Shuffle modes
+- Reading id3 tags from .mp3
 
 ---
 
