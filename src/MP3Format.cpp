@@ -18,9 +18,8 @@ MP3Format::MP3Format(const std::filesystem::path& path)
 
 MP3Format::~MP3Format()
 {
-    if(inner_buffer)
-        delete[] inner_buffer;
-        inner_buffer = nullptr;
+    delete[] inner_buffer;
+    inner_buffer = nullptr;
 }
 
 SDL_Config MP3Format::open(TrackInfo& info)

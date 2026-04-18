@@ -58,7 +58,6 @@ void Player::setTrack(const int &position)
     delete decoder;
     decoder = nullptr;
 
-    info.apic = "";
     decoder = h.processTrack(track, player, config, info);
 }
 

@@ -15,11 +15,8 @@ AudioPlayer::~AudioPlayer()
     SDL_CloseAudioDevice(device);
     SDL_Quit();
 
-    if(buffer)
-    {
-        delete[] buffer;
-        buffer = nullptr;
-    }
+    delete[] buffer;
+    buffer = nullptr;
 }
 
 void AudioPlayer::setDevice(const SDL_Config &config)
@@ -69,9 +66,8 @@ void AudioPlayer::setDevice(const SDL_Config &config)
 
 void AudioPlayer::prepareBuffer(const SDL_Config& config)
 {
-    if(buffer)
-        delete[] buffer;
-        buffer = nullptr;
+    delete[] buffer;
+    buffer = nullptr;
 
     const uint32_t frames = 2048;
     const uint32_t bytesPerSample = config.bitsPerSample / 8;
