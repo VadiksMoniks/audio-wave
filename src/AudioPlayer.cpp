@@ -57,11 +57,19 @@ void AudioPlayer::setDevice(const SDL_Config &config)
     /**
      * @todo ОБЯЗАТЕЛЬНО ПЕРЕДЕЛАТЬ ЧТОБЫ НЕ ОТКРЫВАТЬ ЗАНОВО НУЖНО ПРОВЕРЯТЬ SPEC И ЕСЛИ ДРУГОЙ - ПЕРЕОТКРЫТЬ ИЛИ ПЕРЕНАСТРОИТЬ
     */
-    device = SDL_OpenAudioDevice(NULL, 0, &spec, NULL, 0);//ОБЯЗАТЕЛЬНО ПЕРЕДЕЛАТЬ ЧТОБЫ НЕ ОТКРЫВАТЬ ЗАНОВО НУЖНО ПРОВЕРЯТЬ SPEC И ЕСЛИ ДРУГОЙ - ПЕРЕОТКРЫТЬ ИЛИ ПЕРЕНАСТРОИТЬ
+    device = SDL_OpenAudioDevice(NULL, 0, &spec, &obtained, 0);//ОБЯЗАТЕЛЬНО ПЕРЕДЕЛАТЬ ЧТОБЫ НЕ ОТКРЫВАТЬ ЗАНОВО НУЖНО ПРОВЕРЯТЬ SPEC И ЕСЛИ ДРУГОЙ - ПЕРЕОТКРЫТЬ ИЛИ ПЕРЕНАСТРОИТЬ
 
     //MAX_QUEUE = config.byte_rate / 2;
     MAX_QUEUE = 65536 * config.numChannels * 4;
     buffer = new uint8_t[MAX_QUEUE];
+}
+
+void AudioPlayer::setVolume(const float& volume_level)
+{
+    if(volume_level >= 0 && volume_level <= 1)
+    {
+       volume = volume_level;
+    }
 }
 
 void AudioPlayer::prepareBuffer(const SDL_Config& config)
@@ -101,6 +109,10 @@ int AudioPlayer::playChunk(IAudioDecoder* format)
     else{
         uint32_t chunk_size = format->readPCM(buffer, MAX_QUEUE);
         if(chunk_size > 0){
+            if(volume < 1)
+            {
+                changeVolume(chunk_size);
+            }
             SDL_QueueAudio(device, buffer, chunk_size);
             return 1;
         }
@@ -108,5 +120,55 @@ int AudioPlayer::playChunk(IAudioDecoder* format)
             return 0; 
         }
 
+    }
+}
+
+void AudioPlayer::changeVolume(const uint32_t& chunck_size)
+{
+    switch (obtained.format) {
+    case AUDIO_U8: changeU8(chunck_size);
+        break;
+    case AUDIO_S16SYS: changeS16(chunck_size);
+        break;
+    case AUDIO_S32SYS: changeS32(chunck_size);
+        break;
+    default:
+        break;
+    }
+}
+
+void AudioPlayer::changeU8(const uint32_t& chunck_size)
+{
+    for(uint32_t i = 0; i<chunck_size; i++)
+    {
+        int sample = buffer[i];
+        sample -= 128;
+        sample = (int)(sample * volume);
+        sample += 128;
+
+        if(sample < 0) sample = 0;
+        if(sample > 255) sample = 255;
+
+        buffer[i] = (uint8_t)sample;
+    }
+}
+
+void AudioPlayer::changeS16(const uint32_t& chunck_size)
+{
+    int16_t* samples = reinterpret_cast<int16_t*>(buffer);
+    uint32_t count = chunck_size/2;
+    for(uint32_t i = 0; i<count; i++)
+    {
+        samples[i] = (int16_t)(samples[i] * volume);
+    }
+}
+
+void AudioPlayer::changeS32(const uint32_t& chunck_size)
+{
+    int32_t* samples = reinterpret_cast<int32_t*>(buffer);
+    uint32_t count = chunck_size/4;
+    for(uint32_t i = 0; i<count; i++)
+    {
+        samples[i] = (int32_t)(samples[i] * volume);
     }
 }

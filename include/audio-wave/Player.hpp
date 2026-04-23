@@ -39,6 +39,7 @@ public:
     void pause();
     void get_slider_position(const int &value);
     void set_mode(const MODE& mode);
+    void set_volume(const int& volume);
     PlayerState get_current_state();
     void set_current_state(const PlayerState& state);
     std::string count_total_time();

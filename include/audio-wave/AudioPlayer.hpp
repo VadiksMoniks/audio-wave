@@ -20,9 +20,16 @@ enum class WAVSampleFormat{
 
 class AudioPlayer
 {
+    SDL_AudioSpec obtained;
     SDL_AudioDeviceID device = 0;
     uint32_t MAX_QUEUE;
     uint8_t* buffer;
+    float volume = 1.0;
+
+    void changeVolume(const uint32_t& chunck_size);
+    void changeS16(const uint32_t& chunck_size);
+    void changeU8(const uint32_t& chunck_size);
+    void changeS32(const uint32_t& chunck_size);
     
     public:
         AudioPlayer();
@@ -31,6 +38,7 @@ class AudioPlayer
         void prepareBuffer(const SDL_Config& config);
         void play();
         void pause();
+        void setVolume(const float& volume);
         uint32_t getSDLQueuedAudio();
         //void play(SDL_Config& config, SDL_AudioDeviceID& device, std::ifstream& file, TrackInfo& info, PlayerUI& UI);
         int playChunk(IAudioDecoder* format);

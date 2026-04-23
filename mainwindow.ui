@@ -37,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>445</x>
-      <y>460</y>
+      <y>430</y>
       <width>60</width>
       <height>60</height>
      </rect>
@@ -72,7 +72,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>395</x>
-      <y>475</y>
+      <y>445</y>
       <width>30</width>
       <height>30</height>
      </rect>
@@ -108,7 +108,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>525</x>
-      <y>475</y>
+      <y>445</y>
       <width>30</width>
       <height>30</height>
      </rect>
@@ -162,7 +162,7 @@ qproperty-alignment: 'AlignCenter';</string>
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>480</y>
+      <y>450</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -198,7 +198,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>590</x>
-      <y>480</y>
+      <y>450</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -250,7 +250,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>400</y>
+      <y>380</y>
       <width>310</width>
       <height>20</height>
      </rect>
@@ -287,7 +287,7 @@ QSlider::add-page:horizontal {
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>430</y>
+      <y>410</y>
       <width>30</width>
       <height>16</height>
      </rect>
@@ -300,7 +300,7 @@ QSlider::add-page:horizontal {
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>430</y>
+      <y>410</y>
       <width>30</width>
       <height>16</height>
      </rect>
@@ -367,6 +367,22 @@ padding: 2px;</string>
     </property>
     <property name="wordWrap">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QSlider" name="volumeSlider">
+    <property name="geometry">
+     <rect>
+      <x>395</x>
+      <y>510</y>
+      <width>160</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal { height: 12px; /* толщина полосы */ background: #555555; /* тёмно-серый цвет */ border-radius: 6px; /* скругление краёв */ } QSlider::sub-page:horizontal { background: #777777; /* цвет заполненной части */ border-radius: 6px; } QSlider::add-page:horizontal { background: #555555; /* цвет оставшейся части */ border-radius: 6px; }</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Horizontal</enum>
     </property>
    </widget>
   </widget>

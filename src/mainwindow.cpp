@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     updatePlayButton();
 
+    ui->volumeSlider->setRange(0, 100);
+    ui->volumeSlider->setValue(100);
+
     connect(ui->PlayBtn, &QPushButton::clicked, this, &MainWindow::handlePlayButtonPush);
     connect(ui->NextBtn, &QPushButton::clicked, this, &MainWindow::handleNextButtonPush);
     connect(ui->PrevBtn, &QPushButton::clicked, this, &MainWindow::handlePrevButtonPush);
@@ -30,6 +33,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->audioSlider, &QSlider::sliderReleased, this, [this](){
         p.play();
     });
+
+    connect(ui->volumeSlider, &QSlider::valueChanged, this, [this](int val){
+        p.set_volume(val);
+    });
+
     connect(ui->listWidget, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
         int index = ui->listWidget->row(item);
         //p.set_mode(MODE::LIST);

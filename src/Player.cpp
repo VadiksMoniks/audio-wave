@@ -22,7 +22,11 @@ void Player::set_mode(const MODE& mode)
     else{
       play_mode = mode;  
     }
-    
+}
+
+void Player::set_volume(const int& volume)
+{
+    player.setVolume((float)(volume/100.0));
 }
 
 PlayerState Player::get_current_state()
