@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "SDL_Config.hpp"
 #include "IAudioDecoder.hpp"
+#include <vector>
 /**
  * @todo АУДИОВИЗУАЛИЗАТОР (СТОЛБИКОВАЯ ДИАГРАММА)
  */
@@ -11,7 +12,7 @@ class PlayerUI;
 //constexpr uint32_t AUDIOPLAYER_DELAY = 20;
 //constexpr uint32_t DATACHUNK_SIZE = 4096;
 
-enum class WAVSampleFormat{
+enum class SampleFormat{
     PCM_U8 = 8,
     PCM_S16 = 16,
     PCM_S32 = 32,
@@ -25,11 +26,14 @@ class AudioPlayer
     uint32_t MAX_QUEUE;
     uint8_t* buffer;
     float volume = 1.0;
+    SDL_AudioFormat file_format;
+    std::vector<float> samples;
 
-    void changeVolume(const uint32_t& chunck_size);
-    void changeS16(const uint32_t& chunck_size);
-    void changeU8(const uint32_t& chunck_size);
-    void changeS32(const uint32_t& chunck_size);
+    void convertToFloat(const uint32_t& chunck_size);
+    void convertS16(const uint32_t& chunck_size);
+    void convertU8(const uint32_t& chunck_size);
+    void convertS32(const uint32_t& chunck_size);
+    void convertF32(const uint32_t& chunck_size);
     
     public:
         AudioPlayer();
