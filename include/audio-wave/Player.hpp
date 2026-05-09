@@ -10,6 +10,7 @@
 #include "PlayerState.hpp"
 #include "AudioPlayer.hpp"
 #include "IAudioDecoder.hpp"
+#include <memory>
 
 enum class MODE
 {
@@ -51,7 +52,8 @@ public:
     PlayerQueue q;
 
 private:
-    IAudioDecoder* decoder = nullptr;
+    //IAudioDecoder* decoder = nullptr;
+    std::unique_ptr<IAudioDecoder> decoder;
     std::atomic<PlayerState>CURRENT_STATE = PlayerState::STOPPED;
     SDL_Config config;
     TrackInfo info;

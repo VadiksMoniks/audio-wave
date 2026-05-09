@@ -5,10 +5,11 @@
 #include <filesystem>
 #include "IAudioDecoder.hpp"
 #include "AudioPlayer.hpp"
+#include <memory>
 
 class Handler
 {
     public:
-        IAudioDecoder* processTrack(const std::filesystem::path& filename, AudioPlayer &player, SDL_Config& config, TrackInfo& info);
+        std::unique_ptr<IAudioDecoder> processTrack(const std::filesystem::path& filename, AudioPlayer &player, SDL_Config& config, TrackInfo& info);
 };
 #endif

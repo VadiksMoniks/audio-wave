@@ -9,8 +9,9 @@ Player::Player()
 Player::~Player()
 {
     isRunning = false;
-    delete decoder;
-    decoder = nullptr;
+    //delete decoder;
+    //decoder = nullptr;
+    decoder.reset();
 }
 
 void Player::set_mode(const MODE& mode)
@@ -59,8 +60,9 @@ void Player::setTrack(const int &position)
     q.nextTrack(position);
     std::filesystem::path track = q.selectTrack();
 
-    delete decoder;
-    decoder = nullptr;
+    //delete decoder;
+    //decoder = nullptr;
+    decoder.reset();
 
     info = {""};
     decoder = std::move(h.processTrack(track, player, config, info));
@@ -206,7 +208,7 @@ void Player::audioLoop() {
     while(isRunning) {
         if(CURRENT_STATE == PlayerState::PLAYING) {
             std::lock_guard<std::mutex> lock(mx);
-            if(!player.playChunk(decoder)) {
+            if(!player.playChunk(decoder.get())) {
                 emit trackEnded();
             }
         }
