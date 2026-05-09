@@ -63,7 +63,7 @@ void Player::setTrack(const int &position)
     decoder = nullptr;
 
     info = {""};
-    decoder = h.processTrack(track, player, config, info);
+    decoder = std::move(h.processTrack(track, player, config, info));
 }
 
 void Player::repeat()

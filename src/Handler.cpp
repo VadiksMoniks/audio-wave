@@ -19,13 +19,12 @@ IAudioDecoder* Handler::processTrack(const std::filesystem::path& filename, Audi
     }
     /*else if(filename.extension() == ".flac")
     {
-        //format = new FLACFormat(filename);
+        //format = std::make_unique<IAudioDecoder>(FLACFormat(filename));
         throw std::runtime_error("This format is unsupported yet\n");
     }*/
 
     config = format->open(info);
     player.setDevice(config);
-    player.prepareBuffer(config);
 
     return format;
 }

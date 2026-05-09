@@ -24,7 +24,8 @@ class AudioPlayer
     SDL_AudioSpec obtained;
     SDL_AudioDeviceID device = 0;
     uint32_t MAX_QUEUE;
-    uint8_t* buffer;
+    //uint8_t* buffer;
+    std::vector<uint8_t> buffer;
     float volume = 1.0;
     SDL_AudioFormat file_format;
     std::vector<float> samples;
@@ -39,7 +40,6 @@ class AudioPlayer
         AudioPlayer();
         ~AudioPlayer();
         void setDevice(const SDL_Config & config);
-        void prepareBuffer(const SDL_Config& config);
         void play();
         void pause();
         void setVolume(const float& volume);

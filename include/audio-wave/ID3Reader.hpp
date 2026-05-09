@@ -1,5 +1,5 @@
-#ifndef ID3PARSER_HPP
-#define ID3PARSER_HPP
+#ifndef ID3READER_HPP
+#define ID3READER_HPP
 #include <cstdint>
 #include <cstring>
 #include <string>

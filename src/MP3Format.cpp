@@ -8,31 +8,33 @@
 MP3Format::MP3Format(const std::filesystem::path& path)
 {
     //path_to_file = path.string();
-    buffer_size = std::filesystem::file_size(path);
-    inner_buffer = new uint8_t[buffer_size];
+    //buffer_size = std::filesystem::file_size(path);
+    //inner_buffer = new uint8_t[buffer_size];
+    inner_buffer.resize(std::filesystem::file_size(path));
+
     file.open(path, std::ios_base::binary);
 
-    file.read((char*)inner_buffer, buffer_size);
+    file.read((char*)inner_buffer.data(), inner_buffer.size());
     file.close();
 }
 
 MP3Format::~MP3Format()
 {
-    delete[] inner_buffer;
-    inner_buffer = nullptr;
+    //delete[] inner_buffer;
+    //inner_buffer = nullptr;
 }
 
 SDL_Config MP3Format::open(TrackInfo& info)
 {
-    ID3Reader reader(inner_buffer, buffer_size);
+    ID3Reader reader((void*)inner_buffer.data(), inner_buffer.size());
     if(reader.file_info.id3_format == 2)
     {
-        reader.read_buf_trackName(inner_buffer, info.name);
-        reader.read_buf_artist(inner_buffer, info.artist);
-        reader.read_buf_apic(inner_buffer, info.apic);
+        reader.read_buf_trackName((void*)inner_buffer.data(), info.name);
+        reader.read_buf_artist((void*)inner_buffer.data(), info.artist);
+        reader.read_buf_apic((void*)inner_buffer.data(), info.apic);
     }
 
-    if(mp3dec_ex_open_buf(&dec, inner_buffer, buffer_size, MP3D_SEEK_TO_SAMPLE))
+    if(mp3dec_ex_open_buf(&dec, inner_buffer.data(), inner_buffer.size(), MP3D_SEEK_TO_SAMPLE))
         throw std::runtime_error("can't read this file");
 
     if (dec.info.hz <= 0 || dec.info.channels <= 0) throw std::runtime_error("invalid mp3 info");

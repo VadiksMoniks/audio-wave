@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "minimp3_ex.h"
 
 class MP3Format : public IAudioDecoder
@@ -11,7 +12,8 @@ class MP3Format : public IAudioDecoder
     std::ifstream file;
     mp3dec_ex_t dec{};
     uint32_t current_position = 0;
-    uint8_t* inner_buffer;
+    //uint8_t* inner_buffer;
+    std::vector<uint8_t>inner_buffer;
     uint64_t buffer_size;
 
     public:

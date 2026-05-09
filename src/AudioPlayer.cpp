@@ -4,7 +4,8 @@
 AudioPlayer::AudioPlayer()
 {
     SDL_Init(SDL_INIT_AUDIO);
-    buffer = nullptr;
+    buffer.clear();
+    //buffer = nullptr;
 
 }
 
@@ -15,8 +16,8 @@ AudioPlayer::~AudioPlayer()
     SDL_CloseAudioDevice(device);
     SDL_Quit();
 
-    delete[] buffer;
-    buffer = nullptr;
+    //delete[] buffer;
+    //buffer = nullptr;
 }
 
 void AudioPlayer::setDevice(const SDL_Config &config)
@@ -62,8 +63,11 @@ void AudioPlayer::setDevice(const SDL_Config &config)
     device = SDL_OpenAudioDevice(NULL, 0, &spec, &obtained, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
 
     //MAX_QUEUE = config.byte_rate / 2;
-    MAX_QUEUE = 65536 * config.numChannels * 4;
-    buffer = new uint8_t[MAX_QUEUE];
+    const uint32_t frames = 2048;
+    const uint32_t bytesPerSample = config.bitsPerSample / 8;
+
+    MAX_QUEUE = frames * config.numChannels * bytesPerSample;
+    buffer.resize(MAX_QUEUE);
 }
 
 void AudioPlayer::setVolume(const float& volume_level)
@@ -72,18 +76,6 @@ void AudioPlayer::setVolume(const float& volume_level)
     {
        volume = volume_level;
     }
-}
-
-void AudioPlayer::prepareBuffer(const SDL_Config& config)
-{
-    delete[] buffer;
-    buffer = nullptr;
-
-    const uint32_t frames = 2048;
-    const uint32_t bytesPerSample = config.bitsPerSample / 8;
-
-    MAX_QUEUE = frames * config.numChannels * bytesPerSample;
-    buffer = new uint8_t[MAX_QUEUE];
 }
 
 void AudioPlayer::play()
@@ -109,7 +101,7 @@ int AudioPlayer::playChunk(IAudioDecoder* format)
         return 1;
     }
     else{
-        uint32_t chunk_size = format->readPCM(buffer, MAX_QUEUE);
+        uint32_t chunk_size = format->readPCM(buffer.data(), MAX_QUEUE);
         if(chunk_size > 0){
             convertToFloat(chunk_size);
             SDL_QueueAudio(device, samples.data(), samples.size() * sizeof(float));
@@ -152,7 +144,7 @@ void AudioPlayer::convertU8(const uint32_t& chunck_size)
 
 void AudioPlayer::convertS16(const uint32_t& chunck_size)
 {
-    int16_t* in = reinterpret_cast<int16_t*>(buffer);
+    int16_t* in = reinterpret_cast<int16_t*>(buffer.data());
     uint32_t count = chunck_size/2;
     samples.resize(count);
     for(uint32_t i = 0; i<count; i++)
@@ -166,7 +158,7 @@ void AudioPlayer::convertS16(const uint32_t& chunck_size)
 
 void AudioPlayer::convertS32(const uint32_t& chunck_size)
 {
-    int32_t* in = reinterpret_cast<int32_t*>(buffer);
+    int32_t* in = reinterpret_cast<int32_t*>(buffer.data());
     uint32_t count = chunck_size/4;
     samples.resize(count);
 
@@ -181,7 +173,7 @@ void AudioPlayer::convertS32(const uint32_t& chunck_size)
 
 void AudioPlayer::convertF32(const uint32_t& chunck_size)
 {
-    float* in = reinterpret_cast<float*>(buffer);
+    float* in = reinterpret_cast<float*>(buffer.data());
     uint32_t count = chunck_size/4;
     samples.resize(count);
 
