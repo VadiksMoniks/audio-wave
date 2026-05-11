@@ -1,26 +1,24 @@
-#ifndef AUDIO_PLAYER_HPP
-#define AUDIO_PLAYER_HPP
+//#ifndef AUDIO_PLAYER_HPP
+//#define AUDIO_PLAYER_HPP
+#pragma once
 #include <SDL2/SDL.h>
 #include "SDL_Config.hpp"
 #include "IAudioDecoder.hpp"
 #include <vector>
-/**
- * @todo АУДИОВИЗУАЛИЗАТОР (СТОЛБИКОВАЯ ДИАГРАММА)
- */
 class PlayerUI;
 
 //constexpr uint32_t AUDIOPLAYER_DELAY = 20;
 //constexpr uint32_t DATACHUNK_SIZE = 4096;
 
-enum class SampleFormat{
-    PCM_U8 = 8,
-    PCM_S16 = 16,
-    PCM_S32 = 32,
-    FLOAT32 = 32,
-};
-
 class AudioPlayer
 {
+    enum class SampleFormat{
+        PCM_U8 = 8,
+        PCM_S16 = 16,
+        PCM_S32 = 32,
+        FLOAT32 = 32,
+    };
+
     SDL_AudioSpec obtained;
     SDL_AudioDeviceID device = 0;
     uint32_t MAX_QUEUE;
@@ -30,21 +28,20 @@ class AudioPlayer
     SDL_AudioFormat file_format;
     std::vector<float> samples;
 
-    void convertToFloat(const uint32_t& chunck_size);
-    void convertS16(const uint32_t& chunck_size);
-    void convertU8(const uint32_t& chunck_size);
-    void convertS32(const uint32_t& chunck_size);
-    void convertF32(const uint32_t& chunck_size);
+    void convertToFloat(const uint32_t chunck_size);
+    void convertS16(const uint32_t chunck_size);
+    void convertU8(const uint32_t chunck_size);
+    void convertS32(const uint32_t chunck_size);
+    void convertF32(const uint32_t chunck_size);
     
     public:
-        AudioPlayer();
+        AudioPlayer() noexcept;
         ~AudioPlayer();
         void setDevice(const SDL_Config & config);
         void play();
         void pause();
-        void setVolume(const float& volume);
-        uint32_t getSDLQueuedAudio();
-        //void play(SDL_Config& config, SDL_AudioDeviceID& device, std::ifstream& file, TrackInfo& info, PlayerUI& UI);
+        void setVolume(const float volume);
+        uint32_t getSDLQueuedAudio() const;
         int playChunk(IAudioDecoder* format);
 };
-#endif
+//#endif

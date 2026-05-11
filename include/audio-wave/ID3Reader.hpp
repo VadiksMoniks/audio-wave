@@ -1,5 +1,6 @@
-#ifndef ID3READER_HPP
-#define ID3READER_HPP
+//#ifndef ID3READER_HPP
+//#define ID3READER_HPP
+#pragma once
 #include <cstdint>
 #include <cstring>
 #include <string>
@@ -381,4 +382,4 @@ std::string ID3Reader::utf_16_to_utf_8(char16_t* data_chunk, const size_t& data_
     return _output;
 }
 
-#endif
+//#endif

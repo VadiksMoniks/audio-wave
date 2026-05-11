@@ -1,6 +1,6 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
+//#ifndef PLAYER_H
+//#define PLAYER_H
+#pragma once
 #include <QObject>
 #include <thread>
 #include <atomic>
@@ -65,4 +65,4 @@ private:
     //MODE play_mode = MODE::LIST;
 };
 
-#endif // PLAYER_H
+//#endif // PLAYER_H

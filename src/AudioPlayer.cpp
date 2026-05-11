@@ -1,7 +1,7 @@
 #include "AudioPlayer.hpp"
 #include <stdexcept>
 
-AudioPlayer::AudioPlayer()
+AudioPlayer::AudioPlayer() noexcept
 {
     SDL_Init(SDL_INIT_AUDIO);
     buffer.clear();
@@ -70,7 +70,7 @@ void AudioPlayer::setDevice(const SDL_Config &config)
     buffer.resize(MAX_QUEUE);
 }
 
-void AudioPlayer::setVolume(const float& volume_level)
+void AudioPlayer::setVolume(const float volume_level)
 {
     if(volume_level >= 0 && volume_level <= 1)
     {
@@ -89,7 +89,7 @@ void AudioPlayer::pause()
     SDL_ClearQueuedAudio(device);
 }
 
-uint32_t AudioPlayer::getSDLQueuedAudio()
+uint32_t AudioPlayer::getSDLQueuedAudio() const
 {
     return SDL_GetQueuedAudioSize(device);
 }
@@ -114,7 +114,7 @@ int AudioPlayer::playChunk(IAudioDecoder* format)
     }
 }
 
-void AudioPlayer::convertToFloat(const uint32_t& chunck_size)
+void AudioPlayer::convertToFloat(const uint32_t chunck_size)
 {
     switch (file_format) {
     case AUDIO_U8:     convertU8(chunck_size);
@@ -130,7 +130,7 @@ void AudioPlayer::convertToFloat(const uint32_t& chunck_size)
     }
 }
 
-void AudioPlayer::convertU8(const uint32_t& chunck_size)
+void AudioPlayer::convertU8(const uint32_t chunck_size)
 {
     samples.resize(chunck_size);
     for(uint32_t i = 0; i<chunck_size; i++)
@@ -142,7 +142,7 @@ void AudioPlayer::convertU8(const uint32_t& chunck_size)
     }
 }
 
-void AudioPlayer::convertS16(const uint32_t& chunck_size)
+void AudioPlayer::convertS16(const uint32_t chunck_size)
 {
     int16_t* in = reinterpret_cast<int16_t*>(buffer.data());
     uint32_t count = chunck_size/2;
@@ -156,7 +156,7 @@ void AudioPlayer::convertS16(const uint32_t& chunck_size)
     }
 }
 
-void AudioPlayer::convertS32(const uint32_t& chunck_size)
+void AudioPlayer::convertS32(const uint32_t chunck_size)
 {
     int32_t* in = reinterpret_cast<int32_t*>(buffer.data());
     uint32_t count = chunck_size/4;
@@ -171,7 +171,7 @@ void AudioPlayer::convertS32(const uint32_t& chunck_size)
     }
 }
 
-void AudioPlayer::convertF32(const uint32_t& chunck_size)
+void AudioPlayer::convertF32(const uint32_t chunck_size)
 {
     float* in = reinterpret_cast<float*>(buffer.data());
     uint32_t count = chunck_size/4;

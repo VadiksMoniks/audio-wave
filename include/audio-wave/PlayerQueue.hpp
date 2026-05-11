@@ -1,5 +1,6 @@
-#ifndef PLAYERQUUE_HPP
-#define PLAYERQUEU_HPP
+//#ifndef PLAYERQUUE_HPP
+//#define PLAYERQUEU_HPP
+#pragma once
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -28,4 +29,4 @@ class PlayerQueue
         std::filesystem::path selectTrack();
     
 };
-#endif
+//#endif

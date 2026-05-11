@@ -1,6 +1,6 @@
-#ifndef WAVFORMAT_HPP
-#define WAVFORMAT_HPP
-
+//#ifndef WAVFORMAT_HPP
+//#define WAVFORMAT_HPP
+#pragma once
 #include "IAudioDecoder.hpp"
 #include "SDL_Config.hpp"
 #include <filesystem>
@@ -23,10 +23,10 @@ class WAVFormat : public IAudioDecoder
         WAVFormat(const std::filesystem::path& path);
         ~WAVFormat();
         SDL_Config open(TrackInfo& info);
-        uint32_t readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE);
-        void setPosition(const uint32_t& position);
-        uint32_t getChunkSize();
-        uint32_t getCurrentPosition();
+        uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE);
+        void setPosition(const uint32_t position);
+        uint32_t getChunkSize() const noexcept;
+        uint32_t getCurrentPosition() const noexcept;
         void repeat();
 };
-#endif
+//#endif

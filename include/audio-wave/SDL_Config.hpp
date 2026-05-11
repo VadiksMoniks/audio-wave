@@ -1,5 +1,6 @@
-#ifndef SDL_CONFIG_HPP
-#define SDL_CONFIG_HPP
+//#ifndef SDL_CONFIG_HPP
+//#define SDL_CONFIG_HPP
+#pragma once
 #include <cstdint>
 
 struct SDL_Config
@@ -11,4 +12,4 @@ struct SDL_Config
     uint32_t byte_rate;
 };
 
-#endif
+//#endif

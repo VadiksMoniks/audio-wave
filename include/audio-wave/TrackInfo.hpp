@@ -1,5 +1,6 @@
-#ifndef TRACKINFO_HPP
-#define TRACKINFO_HPP
+//#ifndef TRACKINFO_HPP
+//#define TRACKINFO_HPP
+#pragma once
 #include <string>
 
 struct TrackInfo
@@ -9,4 +10,4 @@ struct TrackInfo
     std::string apic;
 };
 
-#endif
+//#endif

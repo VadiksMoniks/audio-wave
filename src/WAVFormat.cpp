@@ -158,7 +158,7 @@ void WAVFormat::readU32(uint32_t& buffer)
     }
 }
 
-uint32_t WAVFormat::readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE)
+uint32_t WAVFormat::readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE)
 {
     if(current_position < dataChunk_size)
     {
@@ -177,19 +177,19 @@ uint32_t WAVFormat::readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE)
     }
 }
 
-void WAVFormat::setPosition(const uint32_t& position)
+void WAVFormat::setPosition(const uint32_t position)
 {
     current_position = position;
     file.clear();
     file.seekg(current_position, std::ios_base::beg);
 }
 
-uint32_t WAVFormat::getChunkSize()
+uint32_t WAVFormat::getChunkSize() const noexcept
 {
     return dataChunk_size;
 }
 
-uint32_t WAVFormat::getCurrentPosition()
+uint32_t WAVFormat::getCurrentPosition() const noexcept
 {
     return current_position;
 }

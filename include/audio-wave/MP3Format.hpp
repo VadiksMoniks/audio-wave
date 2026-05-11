@@ -1,5 +1,6 @@
-#ifndef MP3FORMAT_H
-#define MP3FORMAT_H
+//#ifndef MP3FORMAT_H
+//#define MP3FORMAT_H
+#pragma once
 #include "IAudioDecoder.hpp"
 #include <filesystem>
 #include <fstream>
@@ -14,17 +15,16 @@ class MP3Format : public IAudioDecoder
     uint32_t current_position = 0;
     //uint8_t* inner_buffer;
     std::vector<uint8_t>inner_buffer;
-    uint64_t buffer_size;
 
     public:
         MP3Format(const std::filesystem::path& path);
         ~MP3Format();
         SDL_Config open(TrackInfo& info);
-        uint32_t readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE);
-        void setPosition(const uint32_t& position);
-        uint32_t getChunkSize();
-        uint32_t getCurrentPosition();
+        uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE);
+        void setPosition(const uint32_t position);
+        uint32_t getChunkSize() const noexcept;
+        uint32_t getCurrentPosition() const noexcept;
         void repeat();
 };
 
-#endif
+//#endif

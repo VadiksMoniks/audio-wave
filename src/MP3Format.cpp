@@ -3,7 +3,6 @@
 #include "minimp3_ex.h"
 #include "MP3Format.hpp"
 #include "ID3Reader.hpp"
-#include <QDebug>
 
 MP3Format::MP3Format(const std::filesystem::path& path)
 {
@@ -50,7 +49,7 @@ SDL_Config MP3Format::open(TrackInfo& info)
 
 }
 
-uint32_t MP3Format::readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE)
+uint32_t MP3Format::readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE)
 {
     int16_t tmp_buff[MAX_QUEUE/2];
     uint32_t readSamples = mp3dec_ex_read(&dec, tmp_buff, MAX_QUEUE / 2 );
@@ -78,7 +77,7 @@ uint32_t MP3Format::readPCM(uint8_t* buffer, const uint32_t& MAX_QUEUE)
     return readSamples * 2;
 }
 
-void MP3Format::setPosition(const uint32_t& position_in_bytes)
+void MP3Format::setPosition(const uint32_t position_in_bytes)
 {
     uint64_t sampleIndex = position_in_bytes / 2;
     // выравниваем по фреймам (чтобы не начать с середины фрейма)
@@ -89,12 +88,12 @@ void MP3Format::setPosition(const uint32_t& position_in_bytes)
     current_position = sampleIndex;
 }
 
-uint32_t MP3Format::getChunkSize()
+uint32_t MP3Format::getChunkSize() const noexcept
 {
     return dec.samples * dec.info.channels;
 }
 
-uint32_t MP3Format::getCurrentPosition()
+uint32_t MP3Format::getCurrentPosition() const noexcept
 {
     return current_position * 2;
 }
