@@ -44,9 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
         p.q.setCurrentTrack(index);
         setTrack(0);
     });
-    connect(&p, &Player::currentTime, this, &MainWindow::onTimeChanged);
-    connect(&p, &Player::currentProgress, this, &MainWindow::onProgressChanged);
-    connect(&p, &Player::trackEnded, this, &MainWindow::setNextTrack);
+    connect(&p, &Core::Player::currentTime, this, &MainWindow::onTimeChanged);
+    connect(&p, &Core::Player::currentProgress, this, &MainWindow::onProgressChanged);
+    connect(&p, &Core::Player::trackEnded, this, &MainWindow::setNextTrack);
 }
 
 MainWindow::~MainWindow()
@@ -71,7 +71,7 @@ void MainWindow::setTrack(const int& position)
 {
 
     try{
-        if(p.play_mode == MODE::SHUFFLE){
+        if(p.get_current_mode() == Core::MODE::SHUFFLE){
             p.setTrack(p.q.setRandomTrack());
         }
         else{
@@ -80,7 +80,7 @@ void MainWindow::setTrack(const int& position)
     }
     catch(const std::runtime_error& e)
     {
-        p.set_current_state(PlayerState::STOPPED);
+        p.set_current_state(Core::PlayerState::STOPPED);
         //showMessage(static_cast<std::string>(e.what()));
         //return;
         p.setTrack(position + 1);
@@ -120,17 +120,17 @@ void MainWindow::updatePlayButton()
 {
     switch (p.get_current_state())
     {
-    case PlayerState::PLAYING:
+    case Core::PlayerState::PLAYING:
         ui->PlayBtn->setIcon(
             style()->standardIcon(QStyle::SP_MediaPause)
             );
         break;
-    case PlayerState::STOPPED:
+    case Core::PlayerState::STOPPED:
         ui->PlayBtn->setIcon(
             style()->standardIcon(QStyle::SP_MediaPlay)
             );
         break;
-    case PlayerState::PAUSED:
+    case Core::PlayerState::PAUSED:
         ui->PlayBtn->setIcon(
             style()->standardIcon(QStyle::SP_MediaPlay)
             );
@@ -159,15 +159,15 @@ void MainWindow::onProgressChanged(uint32_t currentBytes, uint32_t totalBytes)
  */
 void MainWindow::handlePlayButtonPush()//ПЕРЕДЕЛАТЬ
 {
-    if(p.get_current_state() == PlayerState::STOPPED)
+    if(p.get_current_state() == Core::PlayerState::STOPPED)
     {
         setTrack(0);
     }
-    else if(p.get_current_state() == PlayerState::PAUSED)
+    else if(p.get_current_state() == Core::PlayerState::PAUSED)
     {
         p.play();
     }
-    else if(p.get_current_state() == PlayerState::PLAYING)
+    else if(p.get_current_state() == Core::PlayerState::PLAYING)
     {
         p.pause();
     }
@@ -195,8 +195,8 @@ void MainWindow::handleNextButtonPush()
 }
 void MainWindow::hanleRepeatleButtonPush()
 {
-    p.set_mode(MODE::REPEAT);
-    if(p.play_mode == MODE::REPEAT)
+    p.set_mode(Core::MODE::REPEAT);
+    if(p.get_current_mode() == Core::MODE::REPEAT)
     {
         ui->repeatBtn->setStyleSheet("background-color: #0b77cf");
         ui->shuffleBtn->setStyleSheet("background-color: #4b4b4b");
@@ -208,8 +208,8 @@ void MainWindow::hanleRepeatleButtonPush()
 
 void MainWindow::hanleShuffleButtonPush()
 {
-    p.set_mode(MODE::SHUFFLE);
-    if(p.play_mode == MODE::SHUFFLE)
+    p.set_mode(Core::MODE::SHUFFLE);
+    if(p.get_current_mode() == Core::MODE::SHUFFLE)
     {
         ui->shuffleBtn->setStyleSheet("background-color: #0b77cf");
         ui->repeatBtn->setStyleSheet("background-color: #4b4b4b");
@@ -221,7 +221,7 @@ void MainWindow::hanleShuffleButtonPush()
 
 void MainWindow::setNextTrack()
 {
-    if(p.play_mode == MODE::REPEAT)
+    if(p.get_current_mode() == Core::MODE::REPEAT)
     {
         p.repeat();
     }

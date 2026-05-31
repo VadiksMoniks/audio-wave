@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Player.hpp"
+#include "Core/Player.hpp"
 #include <QMainWindow>
 /**
 *@todo СДЕЛАТЬ ВЫБОР ДИРЕКТОРИИ С ПЕСНЯМИ И КАК-ТО ПОФИКСИТЬ МОМЕНТ, ЕСЛИ ПАПКА НЕ СОДЕРЖИТ ТРЕКОВ, ТОЖЕ СООБЩЕНИЕ КИДАТЬ
@@ -31,7 +31,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    Player p;
+    Core::Player p;
 
 private slots:
     void handlePlayButtonPush();

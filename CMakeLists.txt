@@ -18,25 +18,26 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-    src/AudioPlayer.cpp
-    src/PlayerQueue.cpp
-    src/Handler.cpp
-    src/WAVFormat.cpp
+    src/SoundSys/AudioPlayer.cpp
+    src/Core/PlayerQueue.cpp
+    src/Core/Handler.cpp
+    src/SoundSys/WAVFormat.cpp
     src/main.cpp
     src/mainwindow.cpp
-    src/MP3Format.cpp
+    src/SoundSys/MP3Format.cpp
 
-    include/audio-wave/IAudioDecoder.hpp
-    include/audio-wave/AudioPlayer.hpp
-    include/audio-wave/PlayerQueue.hpp
-    include/audio-wave/Handler.hpp
-    include/audio-wave/WAVFormat.hpp
-    include/audio-wave/MP3Format.hpp
-    include/audio-wave/ID3Reader.hpp
-    include/audio-wave/minimp3.h
-    include/audio-wave/minimp3_ex.h
+    include/audio-wave/SoundSys/IAudioDecoder.hpp
+    include/audio-wave/SoundSys/AudioPlayer.hpp
+    include/audio-wave/Core/PlayerQueue.hpp
+    include/audio-wave/Core/Handler.hpp
+    include/audio-wave/SoundSys/WAVFormat.hpp
+    include/audio-wave/SoundSys/MP3Format.hpp
+    include/audio-wave/Libraries/ID3Reader.hpp
+    include/audio-wave/Libraries/minimp3.h
+    include/audio-wave/Libraries/minimp3_ex.h
     include/audio-wave/mainwindow.h
-    include/audio-wave/TrackInfo.hpp
+    include/audio-wave/Core/TrackInfo.hpp
+    include/audio-wave/Core/PlayerState.hpp
 
     mainwindow.ui
 )
@@ -46,8 +47,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ${APP_ICON_RESOURCE_WINDOWS}
-        include/audio-wave/Player.hpp
-        src/Player.cpp
+        include/audio-wave/Core/Player.hpp
+        src/Core/Player.cpp
         resources.qrc
 
     )
