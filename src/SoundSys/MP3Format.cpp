@@ -2,7 +2,6 @@
 #define MINIMP3_EX_IMPLEMENTATION
 #include "Libraries/minimp3_ex.h"
 #include "SoundSys/MP3Format.hpp"
-#include "Libraries/ID3Reader.hpp"
 namespace SoundSys{
     MP3Format::MP3Format(const std::filesystem::path& path)
     {
@@ -23,16 +22,8 @@ namespace SoundSys{
         //inner_buffer = nullptr;
     }
 
-    Core::SDL_Config MP3Format::open(Core::TrackInfo& info)
+    Core::SDL_Config MP3Format::open()
     {
-        Libraries::ID3Reader reader((void*)inner_buffer.data(), inner_buffer.size());
-        if(reader.file_info.id3_format == 2)
-        {
-            reader.read_buf_trackName((void*)inner_buffer.data(), info.name);
-            reader.read_buf_artist((void*)inner_buffer.data(), info.artist);
-            reader.read_buf_apic((void*)inner_buffer.data(), info.apic);
-        }
-
         if(mp3dec_ex_open_buf(&dec, inner_buffer.data(), inner_buffer.size(), MP3D_SEEK_TO_SAMPLE))
             throw std::runtime_error("can't read this file");
 

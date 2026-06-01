@@ -20,7 +20,7 @@ namespace SoundSys{
         public:
             MP3Format(const std::filesystem::path& path);
             ~MP3Format();
-            Core::SDL_Config open(Core::TrackInfo& info);
+            Core::SDL_Config open();
             uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE);
             void setPosition(const uint32_t position);
             uint32_t getChunkSize() const noexcept;

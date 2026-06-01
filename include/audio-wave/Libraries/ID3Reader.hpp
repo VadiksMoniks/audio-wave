@@ -1,11 +1,9 @@
 //#ifndef ID3READER_HPP
 //#define ID3READER_HPP
-#pragma once
 #include <cstdint>
 #include <cstring>
 #include <string>
 #include <vector>
-
 #pragma once
 /**
  * @todo СДЕЛАТЬ ЧТЕНИЕ ID3V1 НО ЭТО УСТАРЕЛО ОНО НЕ ОСОБО НУЖНО
@@ -29,8 +27,8 @@ namespace Libraries{
         uint8_t version;
         uint32_t frame_start_position;
         size_t tag_size;
-        uint8_t* major_version;
-        uint8_t* minor_version;
+        uint8_t major_version;
+        uint8_t minor_version;
     };
 
     class ID3Reader
@@ -81,9 +79,9 @@ namespace Libraries{
         size_t index = 3;
         uint32_t tag_size = 0;
 
-        file_info.major_version = (uint8_t*)(ptr + index);
+        file_info.major_version = *(ptr + index);
         index++;
-        file_info.minor_version = (uint8_t*)(ptr + index);
+        file_info.minor_version = *(ptr + index);
         index++;
         index++;//flags ignore
         buff = (uint8_t*)(ptr + index);
@@ -130,9 +128,9 @@ namespace Libraries{
             index+=4;
             uint32_t frame_size;
 
-            if(*file_info.major_version == 3)
+            if(file_info.major_version == 3)
                 frame_size = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | buff[3];
-            else if(*file_info.major_version == 4)
+            else if(file_info.major_version == 4)
                 frame_size = ((buff[0] & 0x7F) << 21) | ((buff[1] & 0x7F) << 14) | ((buff[2] & 0x7F) << 7) | (buff[3] & 0x7F);
 
             if(frame_size == 0)
@@ -185,9 +183,9 @@ namespace Libraries{
             index+=4;
             uint32_t frame_size;
 
-            if(*file_info.major_version == 3)
+            if(file_info.major_version == 3)
                 frame_size = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | buff[3];
-            else if(*file_info.major_version == 4)
+            else if(file_info.major_version == 4)
                 frame_size = ((buff[0] & 0x7F) << 21) | ((buff[1] & 0x7F) << 14) | ((buff[2] & 0x7F) << 7) | (buff[3] & 0x7F);
 
             if(frame_size == 0)

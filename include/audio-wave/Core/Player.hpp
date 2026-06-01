@@ -42,9 +42,9 @@ namespace Core{
         void set_current_state(const PlayerState& state);
         std::string count_total_time();
         std::string count_current_time();
-        std::string get_track_name();
-        std::string get_track_artist();
-        std::string get_apic();
+        //std::string get_track_name();
+        //std::string get_track_artist();
+        //std::string get_apic();
         //ПЕРЕДЕЛАТЬ
         PlayerQueue q;
         MODE get_current_mode();
@@ -55,7 +55,6 @@ namespace Core{
         std::unique_ptr<SoundSys::IAudioDecoder> decoder;
         std::atomic<PlayerState>CURRENT_STATE = PlayerState::STOPPED;
         SDL_Config config;
-        TrackInfo info;
         Handler h;
         SoundSys::AudioPlayer player;
         std::thread audioThread;

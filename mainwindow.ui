@@ -322,7 +322,7 @@ QSlider::add-page:horizontal {
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset theme="QIcon::ThemeIcon::FolderOpen"/>
+     <iconset theme="QIcon::ThemeIcon::FormatJustifyCenter"/>
     </property>
    </widget>
    <widget class="QLabel" name="label">

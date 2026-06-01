@@ -10,12 +10,15 @@ namespace Core{
     {
         struct Track
         {
-            std::string track_name;
-            std::filesystem::path path_to_track;
+            std::string track_name = "";
+            std::string track_artist = "";
+            std::string apic = "";
+            std::filesystem::path path_to_track = "";
         };
 
         uint64_t current_track = 0;
         std::mt19937 gen;
+        void fitString(std::string& string);
 
         public:
             std::vector<Track> track_queue;
@@ -28,6 +31,9 @@ namespace Core{
             int setRandomTrack();
             uint64_t currentIndex();
             std::filesystem::path selectTrack();
+            std::string getCurrentTrackName();
+            std::string getCurrentTrackArtist();
+            std::string getCurrentTrackApic();
         
     };
 }

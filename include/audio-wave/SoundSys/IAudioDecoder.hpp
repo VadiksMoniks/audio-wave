@@ -3,7 +3,6 @@
 #pragma once
 #include <cstdint>
 #include "Core/SDL_Config.hpp"
-#include "Core/TrackInfo.hpp"
 namespace SoundSys{
     class IAudioDecoder {
     public:
@@ -16,7 +15,7 @@ namespace SoundSys{
         IAudioDecoder(IAudioDecoder&&) = delete;
         IAudioDecoder& operator=(IAudioDecoder&&) = delete;
 
-        virtual Core::SDL_Config open(Core::TrackInfo& info) = 0;
+        virtual Core::SDL_Config open() = 0;
         virtual uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE) = 0;
         virtual void setPosition(const uint32_t position) = 0;
         virtual uint32_t getChunkSize() const noexcept = 0;

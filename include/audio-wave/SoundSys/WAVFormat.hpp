@@ -4,7 +4,6 @@
 #include "SoundSys/IAudioDecoder.hpp"
 #include "Core/SDL_Config.hpp"
 #include <filesystem>
-#include "Core/TrackInfo.hpp"
 #include <fstream>
 namespace SoundSys{
     class WAVFormat : public IAudioDecoder
@@ -22,7 +21,7 @@ namespace SoundSys{
         public:
             WAVFormat(const std::filesystem::path& path);
             ~WAVFormat();
-            Core::SDL_Config open(Core::TrackInfo& info);
+            Core::SDL_Config open();
             uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE);
             void setPosition(const uint32_t position);
             uint32_t getChunkSize() const noexcept;

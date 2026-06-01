@@ -68,9 +68,7 @@ namespace Core{
         //delete decoder;
         //decoder = nullptr;
         decoder.reset();
-
-        info = {""};
-        decoder = std::move(h.processTrack(track, player, config, info));
+        decoder = std::move(h.processTrack(track, player, config));
     }
 
     void Player::repeat()
@@ -84,60 +82,10 @@ namespace Core{
         }
     }
 
-    std::string Player::get_track_name()
-    {
-        int size = 0;
-        for(int i = 0; i< info.name.length(); i++)
-        {
-            if(size == 26)
-            {
-                info.name.resize(i);
-                info.name += "...";
-                break;
-            }
-
-            unsigned char c = (unsigned char)info.name[i];
-            if((c >> 4) == 0xF)
-                i+=3;
-            else if((c >> 4) == 0xE)
-                i+=2;
-            else if((c >> 4) == 0xD || (c >> 4) == 0xC)
-                i+=1;
-
-            size ++;
-        }
-        return info.name;
-    }
-
-    std::string Player::get_track_artist()
-    {
-        int size = 0;
-        for(int i = 0; i< info.artist.length(); i++)
-        {
-            if(size == 26)
-            {
-                info.artist.resize(i);
-                info.artist += "...";
-                break;
-            }
-
-            unsigned char c = (unsigned char)info.artist[i];
-            if((c >> 4) == 0xF)
-                i+=3;
-            else if((c >> 4) == 0xE)
-                i+=2;
-            else if((c >> 4) == 0xD || (c >> 4) == 0xC)
-                i+=1;
-
-            size ++;
-        }
-        return info.artist;
-    }
-
-    std::string Player::get_apic()
+    /*std::string Player::get_apic()
     {
         return info.apic;
-    }
+    }*/
 
     void Player::get_slider_position(const int& value)
     {

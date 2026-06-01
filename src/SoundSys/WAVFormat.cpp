@@ -12,11 +12,11 @@ namespace SoundSys{
             file.close();
     }
 
-    Core::SDL_Config WAVFormat::open(Core::TrackInfo& info)
+    Core::SDL_Config WAVFormat::open()
     {
         Core::SDL_Config config = {0};
         char chunkId[4];
-        uint32_t totaDatalChunkSize;
+        uint32_t totaDataChunkSize;
         char format[4];
         char subchunkId[4];
         uint32_t subchunkSize;
@@ -38,13 +38,13 @@ namespace SoundSys{
                 throw std::runtime_error("Wrong type of file\n");
             }
         }
-        this->readU32(totaDatalChunkSize);;
+        this->readU32(totaDataChunkSize);
 
         this->readChar(format, 4);
         if(std::strncmp(format, "WAVE", 4) != 0)
             throw std::runtime_error("Wrong format of file\n");
 
-        std::streampos eof = file.tellg() + static_cast<std::streamoff>(totaDatalChunkSize);
+        std::streampos eof = file.tellg() + static_cast<std::streamoff>(totaDataChunkSize);
         std::streamoff min_chunk_size = 8;
         //ЧТОБЫ ЦИКЛ ТОЧНО ПРЕКРАЩАЛСЯ, ЕСЛИ ДАННЫХ ОСТАЛОСЬ МЕНЬШЕ ЧЕМ 8(chunkName, chunkSize)
         while(file.tellg() + min_chunk_size < eof)
@@ -70,9 +70,9 @@ namespace SoundSys{
             }
             else if(std::strncmp(subchunkId, "LIST", 4) == 0)
             {   
-                this->readChar(subchunk2Id, 4);
-
-                while(file.tellg() < endOfChunk)
+                this->readChar(subchunk2Id, 4);//INFO
+                file.seekg(endOfChunk, std::ios_base::beg);
+                /*while(file.tellg() < endOfChunk)
                 {
                     this->readChar(subchunk2Id, 4);
                     this->readU32(subchunk2Size);
@@ -91,7 +91,7 @@ namespace SoundSys{
                     }
 
                     file.seekg(next_chunk, std::ios_base::beg);
-                }
+                }*/
             }
             file.seekg(endOfChunk, std::ios_base::beg);
                 

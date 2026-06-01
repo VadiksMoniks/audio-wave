@@ -3,10 +3,8 @@
 #include "SoundSys/MP3Format.hpp"
 #include "SoundSys/AudioPlayer.hpp"
 namespace Core{
-    std::unique_ptr<SoundSys::IAudioDecoder> Handler::processTrack(const std::filesystem::path& filename, SoundSys::AudioPlayer &player, SDL_Config& config, TrackInfo& info)
+    std::unique_ptr<SoundSys::IAudioDecoder> Handler::processTrack(const std::filesystem::path& filename, SoundSys::AudioPlayer &player, SDL_Config& config)
     {
-        info.artist = "Unknown artist";
-        info.name = filename.stem().string();
         //IAudioDecoder* format = nullptr;
         std::unique_ptr<SoundSys::IAudioDecoder> format;
 
@@ -24,7 +22,7 @@ namespace Core{
             throw std::runtime_error("This format is unsupported yet\n");
         }*/
 
-        config = format->open(info);
+        config = format->open();
         player.setDevice(config);
 
         return format;

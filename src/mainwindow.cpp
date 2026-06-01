@@ -86,13 +86,13 @@ void MainWindow::setTrack(const int& position)
         p.setTrack(position + 1);
     }
 
-    ui->trackName->setText(QString::fromStdString(p.get_track_name()));
-    ui->trackArtist->setText(QString::fromStdString(p.get_track_artist()));
+    ui->trackName->setText(QString::fromStdString(p.q.getCurrentTrackName()));
+    ui->trackArtist->setText(QString::fromStdString(p.q.getCurrentTrackArtist()));
     ui->audioSlider->setRange(0, 100);
 
     ui->total_time->setText(QString::fromStdString(p.count_total_time()));
 
-    std::string apic = p.get_apic();
+    std::string apic = p.q.getCurrentTrackApic();
     if(!apic.empty())
     {
         QByteArray byteArray(reinterpret_cast<const char*>(apic.data()), apic.length());

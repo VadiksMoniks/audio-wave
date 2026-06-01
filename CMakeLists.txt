@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
     include/audio-wave/SoundSys/WAVFormat.hpp
     include/audio-wave/SoundSys/MP3Format.hpp
     include/audio-wave/Libraries/ID3Reader.hpp
+    include/audio-wave/Libraries/RIFFReader.hpp
     include/audio-wave/Libraries/minimp3.h
     include/audio-wave/Libraries/minimp3_ex.h
     include/audio-wave/mainwindow.h
