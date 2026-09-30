@@ -1,6 +1,5 @@
-//#ifndef MP3FORMAT_H
-//#define MP3FORMAT_H
 #pragma once
+
 #include "IAudioDecoder.hpp"
 #include <filesystem>
 #include <fstream>
@@ -28,4 +27,3 @@ namespace SoundSys{
             void repeat();
     };
 }
-//#endif

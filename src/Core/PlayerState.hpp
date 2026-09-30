@@ -1,6 +1,5 @@
-//#ifndef PLAYERSTATE_HPP
-//#define PLAYERSTATE_HPP
 #pragma once
+
 namespace Core{
     enum class PlayerState : int{
         PLAYING = 0,
@@ -10,4 +9,3 @@ namespace Core{
         EXIT    = 4,
     };
 }
-//#endif

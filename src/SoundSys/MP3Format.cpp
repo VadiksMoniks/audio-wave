@@ -1,7 +1,7 @@
 #define MINIMP3_IMPLEMENTATION
 #define MINIMP3_EX_IMPLEMENTATION
 #include "Libraries/minimp3_ex.h"
-#include "SoundSys/MP3Format.hpp"
+#include "MP3Format.hpp"
 namespace SoundSys{
     MP3Format::MP3Format(const std::filesystem::path& path)
     {

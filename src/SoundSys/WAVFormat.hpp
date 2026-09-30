@@ -1,6 +1,5 @@
-//#ifndef WAVFORMAT_HPP
-//#define WAVFORMAT_HPP
 #pragma once
+\
 #include "SoundSys/IAudioDecoder.hpp"
 #include "Core/SDL_Config.hpp"
 #include <filesystem>
@@ -29,4 +28,3 @@ namespace SoundSys{
             void repeat();
     };
 }
-//#endif

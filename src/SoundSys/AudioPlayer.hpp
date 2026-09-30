@@ -1,6 +1,5 @@
-//#ifndef AUDIO_PLAYER_HPP
-//#define AUDIO_PLAYER_HPP
 #pragma once
+
 #include <SDL2/SDL.h>
 #include "Core/SDL_Config.hpp"
 #include "SoundSys/IAudioDecoder.hpp"
@@ -41,4 +40,3 @@ namespace SoundSys{
             int playChunk(IAudioDecoder* format);
     };
 }
-//#endif

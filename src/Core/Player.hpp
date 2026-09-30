@@ -1,6 +1,5 @@
-//#ifndef PLAYER_H
-//#define PLAYER_H
 #pragma once
+
 #include <QObject>
 #include <thread>
 #include <atomic>
@@ -62,4 +61,3 @@ namespace Core{
         std::mutex mx;
     };
 }
-//#endif // PLAYER_H

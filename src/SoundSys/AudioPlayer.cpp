@@ -1,4 +1,4 @@
-#include "SoundSys/AudioPlayer.hpp"
+#include "AudioPlayer.hpp"
 #include <stdexcept>
 namespace SoundSys{
     AudioPlayer::AudioPlayer() noexcept

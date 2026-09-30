@@ -1,10 +1,9 @@
-//#ifndef ID3READER_HPP
-//#define ID3READER_HPP
+#pragma once
+
 #include <cstdint>
 #include <cstring>
 #include <string>
 #include <vector>
-#pragma once
 /**
  * @todo СДЕЛАТЬ ЧТЕНИЕ ID3V1 НО ЭТО УСТАРЕЛО ОНО НЕ ОСОБО НУЖНО
  * @todo В КОНСТРУКТОРЕ МОЖЕТ БЫТЬ ПРОБЛЕМА. ЕСЛИ НЕ НАЙДЕТ ID3, ТО ЧТЕНИЕ НЕ ПОЛУЧИТЬСЯ,
@@ -381,4 +380,3 @@ namespace Libraries{
         return _output;
     }
 }
-//#endif

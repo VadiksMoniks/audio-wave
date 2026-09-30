@@ -1,4 +1,4 @@
-#include "Core/PlayerQueue.hpp"
+#include "PlayerQueue.hpp"
 #include <fstream>
 #include "Libraries/ID3Reader.hpp"
 #include "Libraries/RIFFReader.hpp"

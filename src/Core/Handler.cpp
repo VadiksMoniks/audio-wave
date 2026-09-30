@@ -1,4 +1,4 @@
-#include "Core/Handler.hpp"
+#include "Handler.hpp"
 #include "SoundSys/WAVFormat.hpp"
 #include "SoundSys/MP3Format.hpp"
 #include "SoundSys/AudioPlayer.hpp"

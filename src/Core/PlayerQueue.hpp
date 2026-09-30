@@ -1,6 +1,5 @@
-//#ifndef PLAYERQUUE_HPP
-//#define PLAYERQUEU_HPP
 #pragma once
+
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -37,4 +36,3 @@ namespace Core{
         
     };
 }
-//#endif

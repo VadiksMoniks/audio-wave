@@ -1,4 +1,4 @@
-#include "Core/Player.hpp"
+#include "Player.hpp"
 namespace Core{
     Player::Player()
     {

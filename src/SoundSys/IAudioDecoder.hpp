@@ -1,6 +1,5 @@
-//#ifndef IAUDIODECODER_H
-//#define IAUDIODECODER_H
 #pragma once
+
 #include <cstdint>
 #include "Core/SDL_Config.hpp"
 namespace SoundSys{
@@ -23,5 +22,3 @@ namespace SoundSys{
         virtual void repeat() = 0;
     };
 }
-
-//#endif

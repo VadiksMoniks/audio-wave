@@ -1,4 +1,4 @@
-#include "SoundSys/WAVFormat.hpp"
+#include "WAVFormat.hpp"
 #include <cstring>
 namespace SoundSys{
     WAVFormat::WAVFormat(const std::filesystem::path& path)
@@ -68,11 +68,11 @@ namespace SoundSys{
                 dataChunk_size = subchunkSize;
                 current_position = file.tellg();
             }
-            else if(std::strncmp(subchunkId, "LIST", 4) == 0)
+            /*else if(std::strncmp(subchunkId, "LIST", 4) == 0)
             {   
                 this->readChar(subchunk2Id, 4);//INFO
-                file.seekg(endOfChunk, std::ios_base::beg);
-                /*while(file.tellg() < endOfChunk)
+                //file.seekg(endOfChunk, std::ios_base::beg);
+                while(file.tellg() < endOfChunk)
                 {
                     this->readChar(subchunk2Id, 4);
                     this->readU32(subchunk2Size);
@@ -91,8 +91,8 @@ namespace SoundSys{
                     }
 
                     file.seekg(next_chunk, std::ios_base::beg);
-                }*/
-            }
+                }
+            }*/
             file.seekg(endOfChunk, std::ios_base::beg);
                 
         }
