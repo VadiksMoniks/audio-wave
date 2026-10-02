@@ -94,7 +94,7 @@ namespace Core{
         std::lock_guard<std::mutex> lock(mx);
         if(decoder)
         {
-            uint32_t position = value - value % 4;
+            u32 position = value - value % 4;
             decoder->setPosition(position);
         }
 
@@ -105,8 +105,8 @@ namespace Core{
         if(decoder)
         {
             double total_time = ( decoder->getChunkSize() / ( config.numChannels * (config.bitsPerSample/8.0) * config.sampleRate ) );
-            uint32_t total_min = total_time / 60;
-            uint32_t total_sec = (uint32_t)total_time % 60;
+            u32 total_min = total_time / 60;
+            u32 total_sec = (u32)total_time % 60;
 
             std::string time = std::to_string(total_min) + " : ";
 
@@ -128,16 +128,16 @@ namespace Core{
     {
         if(decoder)
         {
-            uint32_t played_min;
-            uint32_t played_sec;
-            uint32_t bytes_out_of_device;
+            u32 played_min;
+            u32 played_sec;
+            u32 bytes_out_of_device;
             double current_time_total;
 
             bytes_out_of_device = ( decoder->getCurrentPosition() - player.getSDLQueuedAudio() );
             current_time_total = bytes_out_of_device / config.byte_rate;
 
-            played_min = (uint32_t)current_time_total / 60;
-            played_sec = (uint32_t)current_time_total % 60;
+            played_min = (u32)current_time_total / 60;
+            played_sec = (u32)current_time_total % 60;
 
             std::string time = std::to_string(played_min) + " : ";
 

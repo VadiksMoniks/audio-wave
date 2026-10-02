@@ -2,6 +2,8 @@
 
 #include <cstdint>
 #include "Core/SDL_Config.hpp"
+#include "Common/types.h"
+
 namespace SoundSys{
     class IAudioDecoder {
     public:
@@ -15,10 +17,10 @@ namespace SoundSys{
         IAudioDecoder& operator=(IAudioDecoder&&) = delete;
 
         virtual Core::SDL_Config open() = 0;
-        virtual uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE) = 0;
-        virtual void setPosition(const uint32_t position) = 0;
-        virtual uint32_t getChunkSize() const noexcept = 0;
-        virtual uint32_t getCurrentPosition() const noexcept = 0;
+        virtual u32 readPCM(u8* buffer, const u32 MAX_QUEUE) = 0;
+        virtual void setPosition(const u32 position) = 0;
+        virtual u32 getChunkSize() const noexcept = 0;
+        virtual u32 getCurrentPosition() const noexcept = 0;
         virtual void repeat() = 0;
     };
 }

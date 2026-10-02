@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include <cstdint>
+#include "Common/types.h"
 
 namespace Libraries{
     class RIFFReader
@@ -11,37 +12,37 @@ namespace Libraries{
         bool BigEndianess = false;
         size_t fsize;
         
-        void readU16(uint16_t& buffer)
+        void readU16(u16& buffer)
         {    
             if(BigEndianess == true)
             {
                 buffer = 
-                        (static_cast<uint16_t>(*ptr) << 8) | 
-                        (static_cast<uint16_t>(*(ptr + 1)));
+                        (static_cast<u16>(*ptr) << 8) | 
+                        (static_cast<u16>(*(ptr + 1)));
             }
             else{
                 buffer = 
-                        (static_cast<uint16_t>(*ptr)) | 
-                        (static_cast<uint16_t>(*(ptr + 1)) << 8);
+                        (static_cast<u16>(*ptr)) | 
+                        (static_cast<u16>(*(ptr + 1)) << 8);
             }
         }
 
-        void readU32(uint32_t& buffer)
+        void readU32(u32& buffer)
         {
             if(BigEndianess == true)
             {
                 buffer = 
-                        (static_cast<uint32_t>(*ptr) << 24) |
-                        (static_cast<uint32_t>(*(ptr + 1)) << 16) |
-                        (static_cast<uint32_t>(*(ptr + 2)) << 8)  |
-                        (static_cast<uint32_t>(*(ptr + 3)));
+                        (static_cast<u32>(*ptr) << 24) |
+                        (static_cast<u32>(*(ptr + 1)) << 16) |
+                        (static_cast<u32>(*(ptr + 2)) << 8)  |
+                        (static_cast<u32>(*(ptr + 3)));
             }
             else{
                 buffer = 
-                        (static_cast<uint32_t>(*ptr))       |
-                        (static_cast<uint32_t>(*(ptr + 1)) << 8)  |
-                        (static_cast<uint32_t>(*(ptr + 2)) << 16) |
-                        (static_cast<uint32_t>(*(ptr + 3)) << 24);
+                        (static_cast<u32>(*ptr))       |
+                        (static_cast<u32>(*(ptr + 1)) << 8)  |
+                        (static_cast<u32>(*(ptr + 2)) << 16) |
+                        (static_cast<u32>(*(ptr + 3)) << 24);
             }
         }
 
@@ -75,7 +76,7 @@ namespace Libraries{
                 }
                 ptr += 4; // skip "RIFF" / "RIFX"
 
-                uint32_t totaDataChunkSize;
+                u32 totaDataChunkSize;
                 this->readU32(totaDataChunkSize);
                 ptr += 4; // skip size RIFF
 
@@ -93,7 +94,7 @@ namespace Libraries{
                     char* subchunkID = ptr;
                     ptr+= 4;// skip LIST
 
-                    uint32_t subChunkSize;
+                    u32 subChunkSize;
                     this->readU32(subChunkSize);
                     ptr += 4;// skip LIST size
                     if (ptr + subChunkSize > riff_end_pos) return 0;
@@ -118,7 +119,7 @@ namespace Libraries{
                             char* frame_name = ptr;
                             ptr += 4;
 
-                            uint32_t frame_size;
+                            u32 frame_size;
                             this->readU32(frame_size);
                             ptr += 4;
 

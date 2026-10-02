@@ -10,6 +10,8 @@
 #include "SoundSys/AudioPlayer.hpp"
 #include "SoundSys/IAudioDecoder.hpp"
 #include <memory>
+#include "Common/types.h"
+
 namespace Core{
     enum class MODE
     {
@@ -24,7 +26,7 @@ namespace Core{
     signals:
         void currentTime(const std::string& time);
         void trackEnded();
-        void currentProgress(uint32_t currentBytes, uint32_t totalBytes);
+        void currentProgress(u32 currentBytes, u32 totalBytes);
 
     public:
         Player();

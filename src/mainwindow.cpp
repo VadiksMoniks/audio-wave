@@ -143,7 +143,7 @@ void MainWindow::onTimeChanged(const std::string& current_time)
     ui->played_time->setText(QString::fromStdString(p.count_current_time()));
 }
 
-void MainWindow::onProgressChanged(uint32_t currentBytes, uint32_t totalBytes)
+void MainWindow::onProgressChanged(u32 currentBytes, u32 totalBytes)
 {
     // защита от авто-триггера seek
     ui->audioSlider->blockSignals(true);

@@ -3,6 +3,8 @@
 
 #include "Core/Player.hpp"
 #include <QMainWindow>
+#include "Common/types.h"
+
 /**
 *@todo СДЕЛАТЬ ВЫБОР ДИРЕКТОРИИ С ПЕСНЯМИ И КАК-ТО ПОФИКСИТЬ МОМЕНТ, ЕСЛИ ПАПКА НЕ СОДЕРЖИТ ТРЕКОВ, ТОЖЕ СООБЩЕНИЕ КИДАТЬ
 *@todo REPEAT ?SHUFFLE?
@@ -40,7 +42,7 @@ private slots:
     void hanleRepeatleButtonPush();
     void hanleShuffleButtonPush();
     void onTimeChanged(const std::string& current_time);
-    void onProgressChanged(uint32_t currentBytes, uint32_t totalBytes);
+    void onProgressChanged(u32 currentBytes, u32 totalBytes);
     void setNextTrack();
 };
 #endif // MAINWINDOW_H

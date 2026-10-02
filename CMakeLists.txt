@@ -47,6 +47,9 @@ set(PROJECT_SOURCES
     src/Libraries/RIFFReader.hpp
     src/Libraries/minimp3.h
     src/Libraries/minimp3_ex.h
+
+    #Common
+    src/Common/types.h
 )
 
 # Создание исполняемого файла в зависимости от версии Qt

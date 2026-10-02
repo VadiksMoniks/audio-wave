@@ -2,12 +2,13 @@
 #define MINIMP3_EX_IMPLEMENTATION
 #include "Libraries/minimp3_ex.h"
 #include "MP3Format.hpp"
+
 namespace SoundSys{
     MP3Format::MP3Format(const std::filesystem::path& path)
     {
         //path_to_file = path.string();
         //buffer_size = std::filesystem::file_size(path);
-        //inner_buffer = new uint8_t[buffer_size];
+        //inner_buffer = new u8[buffer_size];
         inner_buffer.resize(std::filesystem::file_size(path));
 
         file.open(path, std::ios_base::binary);
@@ -40,10 +41,10 @@ namespace SoundSys{
 
     }
 
-    uint32_t MP3Format::readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE)
+    u32 MP3Format::readPCM(u8* buffer, const u32 MAX_QUEUE)
     {
         int16_t tmp_buff[MAX_QUEUE/2];
-        uint32_t readSamples = mp3dec_ex_read(&dec, tmp_buff, MAX_QUEUE / 2 );
+        u32 readSamples = mp3dec_ex_read(&dec, tmp_buff, MAX_QUEUE / 2 );
         current_position += readSamples;
 
         if(readSamples == 0)
@@ -54,23 +55,23 @@ namespace SoundSys{
 
         for(int i = 0; i< readSamples; i++)
         {
-            buffer[i*2]   = (uint8_t)( (tmp_buff[i]) & 0xFF );
-            buffer[i*2+1] = (uint8_t)( (tmp_buff[i] >> 8) & 0xFF );
+            buffer[i*2]   = (u8)( (tmp_buff[i]) & 0xFF );
+            buffer[i*2+1] = (u8)( (tmp_buff[i] >> 8) & 0xFF );
             /*for(int ch = 0; ch < dec.info.channels; ch++)
             {
                 int16_t sample = tmp_buff[i];
                 int idx = (i * dec.info.channels + ch) * 2;
-                buffer[idx]   = (uint8_t)(sample & 0xFF);
-                buffer[idx+1] = (uint8_t)((sample >> 8) & 0xFF);
+                buffer[idx]   = (u8)(sample & 0xFF);
+                buffer[idx+1] = (u8)((sample >> 8) & 0xFF);
             }*/
         }
 
         return readSamples * 2;
     }
 
-    void MP3Format::setPosition(const uint32_t position_in_bytes)
+    void MP3Format::setPosition(const u32 position_in_bytes)
     {
-        uint64_t sampleIndex = position_in_bytes / 2;
+        u64 sampleIndex = position_in_bytes / 2;
         // выравниваем по фреймам (чтобы не начать с середины фрейма)
         sampleIndex /= dec.info.channels; 
         sampleIndex *= dec.info.channels;
@@ -79,12 +80,12 @@ namespace SoundSys{
         current_position = sampleIndex;
     }
 
-    uint32_t MP3Format::getChunkSize() const noexcept
+    u32 MP3Format::getChunkSize() const noexcept
     {
         return dec.samples * dec.info.channels;
     }
 
-    uint32_t MP3Format::getCurrentPosition() const noexcept
+    u32 MP3Format::getCurrentPosition() const noexcept
     {
         return current_position * 2;
     }

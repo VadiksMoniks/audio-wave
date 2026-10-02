@@ -4,27 +4,29 @@
 #include "Core/SDL_Config.hpp"
 #include <filesystem>
 #include <fstream>
+#include "Common/types.h"
+
 namespace SoundSys{
     class WAVFormat : public IAudioDecoder
     {
         std::ifstream file;
         bool BigEndianess = false;
-        uint32_t dataChunk_start_position = 0;
-        uint32_t dataChunk_size = 0;
-        uint32_t current_position;
+        u32 dataChunk_start_position = 0;
+        u32 dataChunk_size = 0;
+        u32 current_position;
 
-        void readChar(char* buffer, uint32_t size_to_read);
-        void readU16(uint16_t& buffer);
-        void readU32(uint32_t& buffer);
+        void readChar(char* buffer, u32 size_to_read);
+        void readU16(u16& buffer);
+        void readU32(u32& buffer);
         
         public:
             WAVFormat(const std::filesystem::path& path);
             ~WAVFormat();
             Core::SDL_Config open();
-            uint32_t readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE);
-            void setPosition(const uint32_t position);
-            uint32_t getChunkSize() const noexcept;
-            uint32_t getCurrentPosition() const noexcept;
+            u32 readPCM(u8* buffer, const u32 MAX_QUEUE);
+            void setPosition(const u32 position);
+            u32 getChunkSize() const noexcept;
+            u32 getCurrentPosition() const noexcept;
             void repeat();
     };
 }

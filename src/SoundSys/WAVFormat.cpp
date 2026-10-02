@@ -16,15 +16,15 @@ namespace SoundSys{
     {
         Core::SDL_Config config = {0};
         char chunkId[4];
-        uint32_t totaDataChunkSize;
+        u32 totaDataChunkSize;
         char format[4];
         char subchunkId[4];
-        uint32_t subchunkSize;
+        u32 subchunkSize;
         
-        uint16_t blockAlign;
+        u16 blockAlign;
         
         char subchunk2Id[4];
-        uint32_t subchunk2Size;
+        u32 subchunk2Size;
 
         this->readChar(chunkId, 4);
 
@@ -51,7 +51,7 @@ namespace SoundSys{
         {
             this->readChar(subchunkId, 4);
             this->readU32(subchunkSize);
-            uint32_t endOfChunk = file.tellg() + static_cast<std::streamoff>(subchunkSize + subchunkSize % 2);
+            u32 endOfChunk = file.tellg() + static_cast<std::streamoff>(subchunkSize + subchunkSize % 2);
 
             if(strncmp(subchunkId, "fmt ", 4) == 0)
             {
@@ -106,7 +106,7 @@ namespace SoundSys{
         return config;
     }
 
-    void WAVFormat::readChar(char* buffer, uint32_t size_to_read)
+    void WAVFormat::readChar(char* buffer, u32 size_to_read)
     {
         file.read((char*)buffer, size_to_read);
         if(file.gcount() != size_to_read)
@@ -114,9 +114,9 @@ namespace SoundSys{
     }
 
     //ТУТ СОБИРАЕТЬСЯ ЧИСЛО ИЗ БАЙТ И ПЕРЕВОРАЧИВАЕТЬСЯ, ЕСЛИ ЭТО BIG-ENDIANES
-    void WAVFormat::readU16(uint16_t& buffer)
+    void WAVFormat::readU16(u16& buffer)
     {
-        uint8_t tmp_buffer[2];
+        u8 tmp_buffer[2];
         file.read((char*)tmp_buffer, 2);
         if(file.gcount() != 2)
             throw std::runtime_error("Reading error\n");
@@ -124,19 +124,19 @@ namespace SoundSys{
         if(BigEndianess == true)
         {
             buffer = 
-                    (static_cast<uint16_t>(tmp_buffer[0]) << 8) | 
-                    (static_cast<uint16_t>(tmp_buffer[1]));
+                    (static_cast<u16>(tmp_buffer[0]) << 8) | 
+                    (static_cast<u16>(tmp_buffer[1]));
         }
         else{
             buffer = 
-                    (static_cast<uint16_t>(tmp_buffer[0])) | 
-                    (static_cast<uint16_t>(tmp_buffer[1]) << 8);
+                    (static_cast<u16>(tmp_buffer[0])) | 
+                    (static_cast<u16>(tmp_buffer[1]) << 8);
         }
     }
     //ТУТ СОБИРАЕТЬСЯ ЧИСЛО ИЗ БАЙТ И ПЕРЕВОРАЧИВАЕТЬСЯ, ЕСЛИ ЭТО BIG-ENDIANES
-    void WAVFormat::readU32(uint32_t& buffer)
+    void WAVFormat::readU32(u32& buffer)
     {
-        uint8_t tmp_buffer[4];
+        u8 tmp_buffer[4];
         file.read((char*)tmp_buffer, 4);
         if(file.gcount() != 4)
             throw std::runtime_error("Reading error\n");
@@ -144,21 +144,21 @@ namespace SoundSys{
         if(BigEndianess == true)
         {
             buffer = 
-                    (static_cast<uint32_t>(tmp_buffer[0]) << 24) |
-                    (static_cast<uint32_t>(tmp_buffer[1]) << 16) |
-                    (static_cast<uint32_t>(tmp_buffer[2]) << 8)  |
-                    (static_cast<uint32_t>(tmp_buffer[3]));
+                    (static_cast<u32>(tmp_buffer[0]) << 24) |
+                    (static_cast<u32>(tmp_buffer[1]) << 16) |
+                    (static_cast<u32>(tmp_buffer[2]) << 8)  |
+                    (static_cast<u32>(tmp_buffer[3]));
         }
         else{
             buffer = 
-                    (static_cast<uint32_t>(tmp_buffer[0]))       |
-                    (static_cast<uint32_t>(tmp_buffer[1]) << 8)  |
-                    (static_cast<uint32_t>(tmp_buffer[2]) << 16) |
-                    (static_cast<uint32_t>(tmp_buffer[3]) << 24);
+                    (static_cast<u32>(tmp_buffer[0]))       |
+                    (static_cast<u32>(tmp_buffer[1]) << 8)  |
+                    (static_cast<u32>(tmp_buffer[2]) << 16) |
+                    (static_cast<u32>(tmp_buffer[3]) << 24);
         }
     }
 
-    uint32_t WAVFormat::readPCM(uint8_t* buffer, const uint32_t MAX_QUEUE)
+    u32 WAVFormat::readPCM(u8* buffer, const u32 MAX_QUEUE)
     {
         if(current_position < dataChunk_size)
         {
@@ -177,19 +177,19 @@ namespace SoundSys{
         }
     }
 
-    void WAVFormat::setPosition(const uint32_t position)
+    void WAVFormat::setPosition(const u32 position)
     {
         current_position = position;
         file.clear();
         file.seekg(current_position, std::ios_base::beg);
     }
 
-    uint32_t WAVFormat::getChunkSize() const noexcept
+    u32 WAVFormat::getChunkSize() const noexcept
     {
         return dataChunk_size;
     }
 
-    uint32_t WAVFormat::getCurrentPosition() const noexcept
+    u32 WAVFormat::getCurrentPosition() const noexcept
     {
         return current_position;
     }

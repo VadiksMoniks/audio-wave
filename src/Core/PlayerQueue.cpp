@@ -7,7 +7,7 @@
 namespace Core{
     void PlayerQueue::fillQueue(const std::string& entry)
     {
-        std::vector<uint8_t> inner_buffer;
+        std::vector<u8> inner_buffer;
         std::ifstream file;
         std::string name = "";
         std::string artist = "";
@@ -23,20 +23,14 @@ namespace Core{
             if(std::filesystem::is_regular_file(it) && std::filesystem::path(it).extension() == ".mp3"){
 
                 Libraries::ID3Reader reader((void*)inner_buffer.data(), inner_buffer.size());
-                if(reader.file_info.id3_format == 2)
-                {
-                    if(reader.read_buf_trackName((void*)inner_buffer.data(), name) == 0)
-                        name = std::filesystem::path(it).stem().string();
-                    if(reader.read_buf_artist((void*)inner_buffer.data(), artist) == 0)
-                        artist = "Unknown";
-                    if(reader.read_buf_apic((void*)inner_buffer.data(), apic) == 0)
-                        apic = "";
-                }
-                else{
+
+                if(reader.read_buf_trackName((void*)inner_buffer.data(), name) == 0)
                     name = std::filesystem::path(it).stem().string();
+                if(reader.read_buf_artist((void*)inner_buffer.data(), artist) == 0)
                     artist = "Unknown";
+                if(reader.read_buf_apic((void*)inner_buffer.data(), apic) == 0)
                     apic = "";
-                }
+
                 this->fitString(name);
                 this->fitString(artist);
 
@@ -69,7 +63,7 @@ namespace Core{
         });*/
     }
 
-    uint64_t PlayerQueue::currentIndex()
+    u64 PlayerQueue::currentIndex()
     {
         return current_track;
     }

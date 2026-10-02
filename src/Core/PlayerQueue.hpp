@@ -4,6 +4,8 @@
 #include <vector>
 #include <filesystem>
 #include <random>
+#include "Common/types.h"
+
 namespace Core{
     class PlayerQueue
     {
@@ -15,7 +17,7 @@ namespace Core{
             std::filesystem::path path_to_track = "";
         };
 
-        uint64_t current_track = 0;
+        u64 current_track = 0;
         std::mt19937 gen;
         void fitString(std::string& string);
 
@@ -28,7 +30,7 @@ namespace Core{
             void setCurrentTrack(const int& position);
             void nextTrack(const int& position);
             int setRandomTrack();
-            uint64_t currentIndex();
+            u64 currentIndex();
             std::filesystem::path selectTrack();
             std::string getCurrentTrackName();
             std::string getCurrentTrackArtist();
