@@ -58,11 +58,26 @@ MainWindow::~MainWindow()
 void MainWindow::updateList()
 { 
     ui->listWidget->clear();
+    ui->listWidget->setIconSize(QSize(32,32));
 
     for(const auto& track : p.q.track_queue) {
-        QListWidgetItem *item = new QListWidgetItem(QIcon(":/default_cover.png"), QString::fromStdString(track.track_name));
+
+        QListWidgetItem *item;
+
+        if(!track.apic.empty())
+        {
+            QByteArray byteArray(reinterpret_cast<const char*>(track.apic.data()), track.apic.length());
+            QImage img;
+            img.loadFromData(byteArray);
+            QPixmap pixmap = QPixmap::fromImage(img);
+            pixmap = pixmap.scaled(32, 32, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            item = new QListWidgetItem(pixmap, QString::fromStdString(track.track_name));
+        }
+        else{
+            item = new QListWidgetItem(QIcon(":/default_cover.png"), QString::fromStdString(track.track_name));
+        }
+
         ui->listWidget->addItem(item);
-        ui->listWidget->setIconSize(QSize(32,32));
     }
 }
 
